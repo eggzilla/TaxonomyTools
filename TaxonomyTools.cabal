@@ -31,5 +31,5 @@ executable TaxonomyTools
   Hs-Source-Dirs:      ./src/Bio/
   main-is:	       TaxonomyTools.hs
   ghc-options:         -Wall -O2    
-  build-depends:       base >=4.5, cmdargs, process, directory, Taxonomy
+  build-depends:       base >=4.5, cmdargs, process, directory, Taxonomy, either-unwrap, fgl
 
