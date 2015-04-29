@@ -1,7 +1,8 @@
 {-# LANGUAGE RecordWildCards #-}
 {-# LANGUAGE DeriveDataTypeable #-}
 -- | TaxonomyTools
-
+-- dist/build/TaxonomyTools/TaxonomyTools -i /scratch/egg/data/taxdump/ -o /home/mescalin/egg/current/Projects/Haskell/TaxonomyTools/
+-- dot -Tsvg taxonomy.dot -o taxonomy.svg
 module Main where
 
 import Prelude 
@@ -9,33 +10,49 @@ import System.Console.CmdArgs
 import Bio.Taxonomy
 import Data.Either.Unwrap
 import Data.Graph.Inductive
-
+import Data.Csv
+import qualified Data.Vector as V
+import qualified Data.ByteString.Lazy.Char8 as L
+import Data.Char
 --------------------------------------------------------
 
 data Options = Options            
-  { taxNodesFilePath :: String,
-    outputPath :: String
+  { taxDumpDirectoryPath :: String,
+    taxNodeListFilePath :: String,                        
+    outputDirectoryPath :: String
   } deriving (Show,Data,Typeable)
 
 options :: Options
 options = Options
-  { taxNodesFilePath = def &= name "i" &= help "Path to input NCBI taxonomy dump nodes file",
-    outputPath = def &= name "o" &= help "Path to output directory"
+  { taxDumpDirectoryPath = def &= name "i" &= help "Path to input NCBI taxonomy dump files directory",
+    taxNodeListFilePath = def &= name "t" &= help "Path to input taxonomy id list",
+    outputDirectoryPath = def &= name "o" &= help "Path to output directory"
   } &= summary "TaxonomyTools" &= help "Florian Eggenhofer - 2015" &= verbosity   
 
 main :: IO ()
 main = do
   Options{..} <- cmdArgs options
-  graphOutput <- readTaxonomy taxNodesFilePath
+  graphOutput <- readNamedTaxonomy taxDumpDirectoryPath
   if (isLeft graphOutput)
      then do
-       print ("Could not parse provided tax nodes file" ++ (fromLeft graphOutput))
+       print ("Could not parse provided taxonomy dump files" ++ show (fromLeft graphOutput))
      else do 
+       taxidtable <- readFile taxNodeListFilePath
+       let taxidtableentries = map (\l -> read l :: Int) (drop 1 (lines taxidtable))
        let graph = fromRight graphOutput
-       let rootNode = bfs (1 :: Node) graph
-       print rootNode
-       let colirootpath = sp (561 :: Node) (1 :: Node) graph
-       print colirootpath
-       let colilabel = lab graph (561 :: Node)
-       print colilabel
-       print taxNodesFilePath
+       let phylumranksgraph  = extractTaxonomySubTreebyLevel taxidtableentries graph (Just 3)                
+       let phylumdiagram = drawTaxonomy (grev phylumranksgraph)
+       writeFile (outputDirectoryPath ++ "taxonomy.dot") phylumdiagram
+       print (components phylumranksgraph)
+       print (map (\n -> level n  (undir phylumranksgraph)) [(1::Node)])
+
+-- | Extract taxids from RNAlien result.csv 
+extractTaxidsAlienCSV :: String -> IO [Node]
+extractTaxidsAlienCSV alienCSVPath = do
+  let myOptions = defaultDecodeOptions {
+         decDelimiter = fromIntegral (ord ';')
+         }
+  inputCSV <- L.readFile alienCSVPath
+  let decodedCsvOutput = V.toList (fromRight (decodeWith myOptions HasHeader (inputCSV) :: Either String (V.Vector (String,String,String))))
+  let taxnodes = map (\(a,_,_) -> read a :: Node) decodedCsvOutput
+  return taxnodes 
