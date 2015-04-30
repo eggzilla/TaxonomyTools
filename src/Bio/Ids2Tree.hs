@@ -33,18 +33,15 @@ main :: IO ()
 main = do
   Options{..} <- cmdArgs options
   graphOutput <- readNamedTaxonomy taxDumpDirectoryPath
-  if (isLeft graphOutput)
-     then do
-       print ("Could not parse provided taxonomy dump files" ++ show (fromLeft graphOutput))
-     else do 
-       taxidtable <- readFile taxNodeListFilePath
+  if isLeft graphOutput then 
+    print ("Could not parse provided taxonomy dump files" ++ show (fromLeft graphOutput))
+    else 
+    do taxidtable <- readFile taxNodeListFilePath
        let taxidtableentries = map (\l -> read l :: Int) (drop 1 (lines taxidtable))
        let graph = fromRight graphOutput
-       let phylumranksgraph  = extractTaxonomySubTreebyLevel taxidtableentries graph (Just 3)                
-       let phylumdiagram = drawTaxonomy (grev phylumranksgraph)
-       writeFile (outputDirectoryPath ++ "taxonomy.dot") phylumdiagram
-       print (components phylumranksgraph)
-       print (map (\n -> level n  (undir phylumranksgraph)) [(1::Node)])
+       let subgraph  = extractTaxonomySubTreebyLevel taxidtableentries graph (Just 3)                
+       let subdiagram = drawTaxonomy (grev subgraph)
+       writeFile (outputDirectoryPath ++ "taxonomy.dot") subdiagram
 
 -- | Extract taxids from RNAlien result.csv 
 extractTaxidsAlienCSV :: String -> IO [Node]
@@ -53,6 +50,6 @@ extractTaxidsAlienCSV alienCSVPath = do
          decDelimiter = fromIntegral (ord ';')
          }
   inputCSV <- L.readFile alienCSVPath
-  let decodedCsvOutput = V.toList (fromRight (decodeWith myOptions HasHeader (inputCSV) :: Either String (V.Vector (String,String,String))))
+  let decodedCsvOutput = V.toList (fromRight (decodeWith myOptions HasHeader inputCSV :: Either String (V.Vector (String,String,String))))
   let taxnodes = map (\(a,_,_) -> read a :: Node) decodedCsvOutput
   return taxnodes 
