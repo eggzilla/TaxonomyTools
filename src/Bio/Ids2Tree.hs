@@ -18,7 +18,8 @@ import Data.Char
 
 data Options = Options            
   { taxDumpDirectoryPath :: String,
-    taxNodeListFilePath :: String,                        
+    taxNodeListFilePath :: String,
+    levels :: Int,
     outputDirectoryPath :: String
   } deriving (Show,Data,Typeable)
 
@@ -26,6 +27,7 @@ options :: Options
 options = Options
   { taxDumpDirectoryPath = def &= name "i" &= help "Path to input NCBI taxonomy dump files directory",
     taxNodeListFilePath = def &= name "t" &= help "Path to input taxonomy id list",
+    levels = (1 ::Int) &= name "l" &= help "Number defining maximum distance from root for nodes in subtree.",
     outputDirectoryPath = def &= name "o" &= help "Path to output directory"
   } &= summary "TaxonomyTools" &= help "Florian Eggenhofer - 2015" &= verbosity   
 
@@ -39,7 +41,7 @@ main = do
     do taxidtable <- readFile taxNodeListFilePath
        let taxidtableentries = map (\l -> read l :: Int) (drop 1 (lines taxidtable))
        let graph = fromRight graphOutput
-       let subgraph  = extractTaxonomySubTreebyLevel taxidtableentries graph (Just 3)                
+       let subgraph  = extractTaxonomySubTreebyLevel taxidtableentries graph (Just levels)                
        let subdiagram = drawTaxonomy (grev subgraph)
        writeFile (outputDirectoryPath ++ "taxonomy.dot") subdiagram
 
