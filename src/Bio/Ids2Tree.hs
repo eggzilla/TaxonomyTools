@@ -1,7 +1,7 @@
 {-# LANGUAGE RecordWildCards #-}
 {-# LANGUAGE DeriveDataTypeable #-}
 -- | TaxonomyTools
--- dist/build/TaxonomyTools/TaxonomyTools -i /scratch/egg/data/taxdump/ -o /home/mescalin/egg/current/Projects/Haskell/TaxonomyTools/
+-- dist/build/Ids2Tree/Ids2Tree -i /scratch/egg/data/taxdump/ -o /home/mescalin/egg/current/Projects/Haskell/TaxonomyTools/
 -- dot -Tsvg taxonomy.dot -o taxonomy.svg
 module Main where
 
