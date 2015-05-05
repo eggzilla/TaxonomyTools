@@ -19,6 +19,7 @@ import Data.Char
 data Options = Options            
   { taxDumpDirectoryPath :: String,
     taxNodeListFilePath :: String,
+    alienCSVFilePath ::String,
     levels :: Int,
     outputDirectoryPath :: String
   } deriving (Show,Data,Typeable)
@@ -26,7 +27,8 @@ data Options = Options
 options :: Options
 options = Options
   { taxDumpDirectoryPath = def &= name "i" &= help "Path to input NCBI taxonomy dump files directory",
-    taxNodeListFilePath = def &= name "t" &= help "Path to input taxonomy id list",
+    taxNodeListFilePath = def &= name "t" &= help "Path to input taxonomy id list without header",
+    alienCSVFilePath = def &= name "r" &= help "Path to RNAlienResult CSV. Alternative to input taxonomy id list",
     levels = (1 ::Int) &= name "l" &= help "Number defining maximum distance from root for nodes in subtree.",
     outputDirectoryPath = def &= name "o" &= help "Path to output directory"
   } &= summary "TaxonomyTools" &= help "Florian Eggenhofer - 2015" &= verbosity   
@@ -37,13 +39,25 @@ main = do
   graphOutput <- readNamedTaxonomy taxDumpDirectoryPath
   if isLeft graphOutput then 
     print ("Could not parse provided taxonomy dump files" ++ show (fromLeft graphOutput))
-    else 
-    do taxidtable <- readFile taxNodeListFilePath
-       let taxidtableentries = map (\l -> read l :: Int) (drop 1 (lines taxidtable))
-       let graph = fromRight graphOutput
-       let subgraph  = extractTaxonomySubTreebyLevel taxidtableentries graph (Just levels)                
-       let subdiagram = drawTaxonomy (grev subgraph)
-       writeFile (outputDirectoryPath ++ "taxonomy.dot") subdiagram
+    else   
+    do if null taxNodeListFilePath then
+         do if null alienCSVFilePath then
+              putStrLn "Provide a path to input taxonomy id list or to RNAlienResult CSV."
+              else 
+              do -- input AlienCSV path present
+                taxidtableentries <- extractTaxidsAlienCSV alienCSVFilePath
+                let graph = fromRight graphOutput
+                let subgraph  = extractTaxonomySubTreebyLevel taxidtableentries graph (Just levels)                
+                let subdiagram = drawTaxonomy (grev subgraph)
+                writeFile (outputDirectoryPath ++ "taxonomy.dot") subdiagram
+         else 
+         do -- input taxid path present
+            taxidtable <- readFile taxNodeListFilePath
+            let taxidtableentries = map (\l -> read l :: Int) (lines taxidtable)
+            let graph = fromRight graphOutput
+            let subgraph  = extractTaxonomySubTreebyLevel taxidtableentries graph (Just levels)                
+            let subdiagram = drawTaxonomy (grev subgraph)
+            writeFile (outputDirectoryPath ++ "taxonomy.dot") subdiagram
 
 -- | Extract taxids from RNAlien result.csv 
 extractTaxidsAlienCSV :: String -> IO [Node]
