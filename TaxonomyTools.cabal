@@ -30,13 +30,13 @@ source-repository this
 executable TaxIds2Text
   Hs-Source-Dirs:      ./src/Bio/
   main-is:	       TaxIds2Text.hs
-  ghc-options:         -Wall -O2    
-  build-depends:       base >=4.5, cmdargs, process, directory, Taxonomy, either-unwrap, fgl, cassava, vector, bytestring, parsec, EntrezHTTP, hxt
+  ghc-options:         -Wall -O2
+  build-depends:       base >=4.5, cmdargs, Taxonomy, either-unwrap, fgl, bytestring
 
 executable Accessions2TaxIds
   Hs-Source-Dirs:      ./src/Bio/
   main-is:	       Accessions2TaxIds.hs
-  ghc-options:         -Wall -O2    
+  ghc-options:         -Wall -O2 -fno-warn-unused-do-bind
   build-depends:       base >=4.5, cmdargs, process, directory, Taxonomy, either-unwrap, fgl, cassava, vector, bytestring, parsec, EntrezHTTP, hxt
 
 executable Ids2TreeCompare
@@ -49,5 +49,5 @@ executable Ids2Tree
   Hs-Source-Dirs:      ./src/Bio/
   main-is:	       Ids2Tree.hs
   ghc-options:         -Wall -O2    
-  build-depends:       base >=4.5, cmdargs, process, directory, Taxonomy, either-unwrap, fgl, cassava, vector, bytestring
+  build-depends:       base >=4.5, cmdargs, process, directory, Taxonomy, either-unwrap, fgl, cassava, vector, bytestring, aeson
 
