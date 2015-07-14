@@ -8,26 +8,23 @@ module Main where
     
 import System.Console.CmdArgs    
 import Text.ParserCombinators.Parsec
-import System.Environment
 import Data.List
 import Data.Either.Unwrap
 import Control.Concurrent
-import Text.Parsec.Error
-import Text.ParserCombinators.Parsec.Pos
-import qualified Data.ByteString.Char8 as BC
 import Bio.EntrezHTTP
 import Text.XML.HXT.Core  
  
 data Options = Options            
   { inputFilePath :: String
   } deriving (Show,Data,Typeable)
-             
+
+options :: Options            
 options = Options
-  { inputFilePath = def &= name "i" &= help "Path to input fasta file"
+  { inputFilePath = def &= name "i" &= help "Path to input accession file containing taxids seperated by linebreaks."
   } &= summary "Accessions2TaxIds" &= help "Florian Eggenhofer - 2015" &= verbosity   
-        
+  
+main :: IO [()]    
 main = do
-  args <- getArgs
   Options{..} <- cmdArgs options       
   accessionsFile <- readFile inputFilePath
   let accessions = lines accessionsFile
