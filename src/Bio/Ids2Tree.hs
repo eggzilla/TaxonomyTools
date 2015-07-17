@@ -93,6 +93,5 @@ extractTaxidsAlienCSV alienCSVPath = do
          }
   inputCSV <- L.readFile alienCSVPath
   let decodedCsvOutput = V.toList (fromRight (decodeWith myOptions HasHeader inputCSV :: Either String (V.Vector (String,String,String))))
-  print decodedCsvOutput
   let taxnodes = map (\(a,_,_) -> read a :: Node) decodedCsvOutput
   return taxnodes 
