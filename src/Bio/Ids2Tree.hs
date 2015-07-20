@@ -92,6 +92,6 @@ extractTaxidsAlienCSV alienCSVPath = do
          decDelimiter = fromIntegral (ord ';')
          }
   inputCSV <- L.readFile alienCSVPath
-  let decodedCsvOutput = V.toList (fromRight (decodeWith myOptions HasHeader inputCSV :: Either String (V.Vector (String,String,String))))
-  let taxnodes = map (\(a,_,_) -> read a :: Node) decodedCsvOutput
+  let decodedCsvOutput = V.toList (fromRight (decodeWith myOptions HasHeader inputCSV :: Either String (V.Vector (Int,L.ByteString,L.ByteString))))
+  let taxnodes = map (\(a,_,_) -> a :: Node) decodedCsvOutput
   return taxnodes 
