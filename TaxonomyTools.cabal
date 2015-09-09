@@ -48,6 +48,15 @@ executable Ids2TreeCompare
 executable Ids2Tree
   Hs-Source-Dirs:      ./src/Bio/
   main-is:	       Ids2Tree.hs
-  ghc-options:         -Wall -O2    
+  ghc-options:         -Wall 
+--                       -prof
+--                       -O2 
+--                       -fprof-auto
+--                       "-with-rtsopts=-p -s -h -i0.1" 
   build-depends:       base >=4.5, cmdargs, process, directory, Taxonomy, either-unwrap, fgl, cassava, vector, bytestring, aeson
 
+executable TreeDistance
+  Hs-Source-Dirs:      ./src/Bio/
+  main-is:	       TreeDistance.hs
+  ghc-options:         -Wall 
+  build-depends:       base >=4.5, cmdargs, process, directory, Taxonomy, either-unwrap, fgl, vector, bytestring

@@ -15,6 +15,7 @@ import qualified Data.Vector as V
 import qualified Data.ByteString.Lazy.Char8 as L
 import Data.Char
 import qualified Data.Aeson.Encode as E
+import qualified Control.Exception.Base as CE
 --------------------------------------------------------
 
 data Options = Options            
