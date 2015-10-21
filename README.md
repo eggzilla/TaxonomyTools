@@ -1,10 +1,11 @@
-TaxonomyTools   [![Build Status](https://travis-ci.org/eggzilla/TaxonomyTools.svg)](https://travis-ci.org/eggzilla/TaxonomyTools)
+![TaxonomyTools](http://www.tbi.univie.ac.at/~egg/TaxonomyTools.png "TaxonomyTools")
+Taxonomy Tools [![Hackage](https://img.shields.io/hackage/v/TaxonomyTools.svg)](https://hackage.haskell.org/package/TaxonomyTools) [![Build Status](https://travis-ci.org/eggzilla/TaxonomyTools.svg)](https://travis-ci.org/eggzilla/TaxonomyTools)
 =============
 
 Taxonomy Tool utilizes functions from the Taxonomy library to provide
 several commandline utilities for routine-tasks with taxonomy data.
-Currently some tools accept either the NCBI taxonomy dump as input,
-while other retrieve the data directly from the NCBI Entrez REST interface.
+Currently some tools accept either the [NCBI taxonomy dump]() as input,
+while other retrieve the data directly from the [NCBI Entrez REST]() interface.
 It is planned to support both datasources with each tool.
 
 Currently following Tools are included:
