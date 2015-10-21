@@ -1,5 +1,4 @@
-![TaxonomyTools](http://www.tbi.univie.ac.at/~egg/TaxonomyTools.png "TaxonomyTools")
-Taxonomy Tools [![Hackage](https://img.shields.io/hackage/v/TaxonomyTools.svg)](https://hackage.haskell.org/package/TaxonomyTools) [![Build Status](https://travis-ci.org/eggzilla/TaxonomyTools.svg)](https://travis-ci.org/eggzilla/TaxonomyTools)
+![TaxonomyTools](http://www.tbi.univie.ac.at/~egg/TaxonomyTools.png "TaxonomyTools") [![Hackage](https://img.shields.io/hackage/v/TaxonomyTools.svg)](https://hackage.haskell.org/package/TaxonomyTools) [![Build Status](https://travis-ci.org/eggzilla/TaxonomyTools.svg)](https://travis-ci.org/eggzilla/TaxonomyTools)
 =============
 
 Taxonomy Tool utilizes functions from the Taxonomy library to provide
