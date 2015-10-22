@@ -9,18 +9,18 @@ Currently some tools accept either the [NCBI taxonomy dump]() as input,
 while other retrieve the data directly from the [NCBI Entrez REST]() interface.
 It is planned to support both datasources with each tool.
 
-Currently following Tools are included:
+Currently following Tools are included and linked with their usage instructions:
 
-###Accessions2TaxIds
+###[Accessions2TaxIds](accessions2taxids.md)
 Converts a list of NCBI accession numbers into NCBI taxonomy ids
-###Ids2Tree
+###[Ids2Tree](ids2tree.md)
 List of taxonomy ids is converted into a graphical tree representation
 either as .svg (via graphviz) or as .json (via d3js)
-###Ids2TreeCompare
+###[Ids2TreeCompare](ids2treecompare.md)
 Multiple lists of taxonomy ids are converted into a visualisation of the
 taxonomic tree highlighting the input nodes corresponding to their list. 
-###TaxIds2Text
+###[TaxIds2Text](taxids2text.md)
 List of taxonomy ids is converted in a short text summary for each node.
-###TreeDistance
+###[TreeDistance](treedistance.md)
 Computes the distance between two input nodes on the given tree.
 
