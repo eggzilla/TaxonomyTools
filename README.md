@@ -9,6 +9,10 @@ Currently some tools accept either the [NCBI taxonomy dump]() as input,
 while other retrieve the data directly from the [NCBI Entrez REST]() interface.
 It is planned to support both datasources with each tool.
 
+TaxonomyTools can be install via the Haskell package management system:
+
+    cabal install TaxonomyTools
+
 Currently following Tools are included and linked with their usage instructions:
 
 ###[Accessions2TaxIds](accessions2taxids.md)
