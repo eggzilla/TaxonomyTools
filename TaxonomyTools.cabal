@@ -60,32 +60,28 @@ executable TaxIds2Text
   Hs-Source-Dirs:      ./src/Bio/
   main-is:	       TaxIds2Text.hs
   ghc-options:         -Wall -O2
-  build-depends:       base >=4.5, cmdargs, Taxonomy, either-unwrap, fgl, bytestring
+  build-depends:       base >=4.5 && <5, cmdargs, Taxonomy, either-unwrap, fgl, bytestring
 
 executable Accessions2TaxIds
   Hs-Source-Dirs:      ./src/Bio/
   main-is:	       Accessions2TaxIds.hs
   ghc-options:         -Wall -O2 -fno-warn-unused-do-bind
-  build-depends:       base >=4.5, cmdargs, process, directory, Taxonomy, either-unwrap, fgl, cassava, vector, bytestring, parsec, EntrezHTTP, hxt
+  build-depends:       base >=4.5 && <5, cmdargs, process, directory, Taxonomy, either-unwrap, fgl, cassava, vector, bytestring, parsec, EntrezHTTP, hxt
 
 executable TaxIds2TreeCompare
   Hs-Source-Dirs:      ./src/Bio/
   main-is:	       TaxIds2TreeCompare.hs
   ghc-options:         -Wall -O2    
-  build-depends:       base >=4.5, cmdargs, process, directory, Taxonomy, either-unwrap, fgl, cassava, vector, bytestring
+  build-depends:       base >=4.5 && <5, cmdargs, process, directory, Taxonomy, either-unwrap, fgl, cassava, vector, bytestring
 
 executable TaxIds2Tree
   Hs-Source-Dirs:      ./src/Bio/
   main-is:	       TaxIds2Tree.hs
-  ghc-options:         -Wall 
---                       -prof
---                       -O2 
---                       -fprof-auto
---                       "-with-rtsopts=-p -s -h -i0.1" 
-  build-depends:       base >=4.5, cmdargs, process, directory, Taxonomy, either-unwrap, fgl, cassava, vector, bytestring, aeson
+  ghc-options:         -Wall -O2 
+  build-depends:       base >=4.5 && <5, cmdargs, process, directory, Taxonomy, either-unwrap, fgl, cassava, vector, bytestring, aeson
 
 executable TaxIdsDistance
   Hs-Source-Dirs:      ./src/Bio/
   main-is:	       TaxIdsDistance.hs
-  ghc-options:         -Wall 
-  build-depends:       base >=4.5, cmdargs, process, directory, Taxonomy, either-unwrap, fgl, vector, bytestring
+  ghc-options:         -Wall -O2
+  build-depends:       base >=4.5 && <5, cmdargs, process, directory, Taxonomy, either-unwrap, fgl, vector, bytestring
