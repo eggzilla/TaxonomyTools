@@ -2,8 +2,7 @@
 {-# LANGUAGE DeriveDataTypeable #-}
 {-# LANGUAGE Arrows #-}
 
--- /dist/build/TaxIds2Text/TaxIds2Text -t /home/mescalin/egg/current/Projects/Haskell/TaxonomyTools/RF00169_accessionnumbers.tax -i /scratch/egg/data/taxdmpnew/
-
+-- ./dist/build/TaxIds2Text/TaxIds2Text -t /home/mescalin/egg/current/Projects/Haskell/TaxonomyTools/RF00169_accessionnumbers.tax -r Phylum -i /scratch/egg/taxdmpnew/ > out.csv
 module Main where
     
 import System.Console.CmdArgs    
@@ -24,7 +23,7 @@ options = Options
   { taxDumpDirectoryPath = def &= name "i" &= help "Path to input NCBI taxonomy dump files directory",
     taxonomicRank = "Class" &= name "r" &= help "Requested taxonomic rank - default Class",
     taxNodeListFilePath = def &= name "t" &= help "Path to input taxonomy id list without header"
-  } &= summary "TaxIds2Text" &= help "Florian Eggenhofer - 2015" &= verbosity   
+  } &= summary "TaxIds2Text - List of taxonomy ids is converted in a short text summary for each node." &= help "Florian Eggenhofer - 2015" &= verbosity   
         
 main :: IO ()
 main = do

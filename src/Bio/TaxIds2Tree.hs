@@ -1,7 +1,7 @@
 {-# LANGUAGE RecordWildCards #-}
 {-# LANGUAGE DeriveDataTypeable #-}
--- | TaxonomyTools
--- dist/build/Ids2Tree/Ids2Tree -i /scratch/egg/data/taxdump/ -o /home/mescalin/egg/current/Projects/Haskell/TaxonomyTools/ -t /home/mescalin/egg/current/Projects/Haskell/TaxonomyTools/RF00169_accessionnumbers.tax -f json -l 4
+-- | TaxIds2Tree
+-- dist/build/TaxIds2Tree/TaxIds2Tree -i /scratch/egg/data/taxdump/ -o /home/mescalin/egg/current/Projects/Haskell/TaxonomyTools/ -t /home/mescalin/egg/current/Projects/Haskell/TaxonomyTools/RF00169_accessionnumbers.tax -f json -l 4
 -- dot -Tsvg taxonomy.dot -o taxonomy.svg
 module Main where
 
@@ -35,7 +35,7 @@ options = Options
     levels = (1 ::Int) &= name "l" &= help "Number defining maximum distance from root for nodes in subtree.",
     outputFormat = "dot" &= name "f" &= help "Requested output format (json,dot). Default: dot",
     outputDirectoryPath = def &= name "o" &= help "Path to output directory"
-  } &= summary "TaxonomyTools" &= help "Florian Eggenhofer - 2015" &= verbosity   
+  } &= summary "TaxIds2Tree -  List of taxonomy ids is converted into a graphical tree representation either as .svg (via graphviz) or as .json (via d3js)" &= help "Florian Eggenhofer - 2015" &= verbosity   
 
 main :: IO ()
 main = do

@@ -24,11 +24,11 @@ description:         Taxonomy Tool utilizes functions from the Taxonomy library 
                      * Accessions2TaxIds: 
                      Converts a list of NCBI accession numbers into NCBI taxonomy ids
                      .
-                     * Ids2Tree: 
+                     * TaxIds2Tree: 
                      List of taxonomy ids is converted into a graphical tree representation
-                     either as .svg (via graphviz) or as .json (via d3js)
+                     either as .svg (via graphviz) or as .json (via d3js).
                      .
-                     * Ids2TreeCompare:
+                     * TaxIds2TreeCompare:
                      Multiple lists of taxonomy ids are converted into a visualisation of the
                      taxonomic tree highlighting the input nodes corresponding to their list.
                      .
@@ -68,15 +68,15 @@ executable Accessions2TaxIds
   ghc-options:         -Wall -O2 -fno-warn-unused-do-bind
   build-depends:       base >=4.5, cmdargs, process, directory, Taxonomy, either-unwrap, fgl, cassava, vector, bytestring, parsec, EntrezHTTP, hxt
 
-executable Ids2TreeCompare
+executable TaxIds2TreeCompare
   Hs-Source-Dirs:      ./src/Bio/
-  main-is:	       Ids2TreeCompare.hs
+  main-is:	       TaxIds2TreeCompare.hs
   ghc-options:         -Wall -O2    
   build-depends:       base >=4.5, cmdargs, process, directory, Taxonomy, either-unwrap, fgl, cassava, vector, bytestring
 
-executable Ids2Tree
+executable TaxIds2Tree
   Hs-Source-Dirs:      ./src/Bio/
-  main-is:	       Ids2Tree.hs
+  main-is:	       TaxIds2Tree.hs
   ghc-options:         -Wall 
 --                       -prof
 --                       -O2 
@@ -84,8 +84,8 @@ executable Ids2Tree
 --                       "-with-rtsopts=-p -s -h -i0.1" 
   build-depends:       base >=4.5, cmdargs, process, directory, Taxonomy, either-unwrap, fgl, cassava, vector, bytestring, aeson
 
-executable TreeDistance
+executable TaxIdsDistance
   Hs-Source-Dirs:      ./src/Bio/
-  main-is:	       TreeDistance.hs
+  main-is:	       TaxIdsDistance.hs
   ghc-options:         -Wall 
   build-depends:       base >=4.5, cmdargs, process, directory, Taxonomy, either-unwrap, fgl, vector, bytestring

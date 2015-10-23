@@ -1,7 +1,7 @@
 {-# LANGUAGE RecordWildCards #-}
 {-# LANGUAGE DeriveDataTypeable #-}
 -- | TaxonomyTools
--- dist/build/TreeDistance/TreeDistance -i /scratch/egg/data/taxdump/ -a 9986 -b 4039
+-- dist/build/TaxIdsDistance/TaxIdsDistance -i /scratch/egg/data/taxdump/ -a 9986 -b 4039
 module Main where
 
 import Prelude 
@@ -22,7 +22,7 @@ options = Options
   { taxDumpDirectoryPath = def &= name "i" &= help "Path to input NCBI taxonomy dump files directory",
     organism1 = def &= name "a" &= help "NCBI Taxonomy Id of the first organism",
     organism2 = def &= name "b" &= help "NCBI Taxonomy Id of the second organism"
-  } &= summary "TaxonomyTools" &= help "Florian Eggenhofer - 2015" &= verbosity   
+  } &= summary "TaxIdsDistance - Computes the distance between two input nodes on the given tree." &= help "Florian Eggenhofer - 2015" &= verbosity   
 
 main :: IO ()
 main = do
