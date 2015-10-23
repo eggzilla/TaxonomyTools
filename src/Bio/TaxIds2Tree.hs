@@ -15,7 +15,6 @@ import qualified Data.Vector as V
 import qualified Data.ByteString.Lazy.Char8 as L
 import Data.Char
 import qualified Data.Aeson.Encode as E
-import qualified Control.Exception.Base as CE
 --------------------------------------------------------
 
 data Options = Options            
@@ -51,19 +50,19 @@ main = do
               do -- input AlienCSV path present
                 taxidtableentries <- extractTaxidsAlienCSV alienCSVFilePath
                 let graph = fromRight graphOutput
-                let subgraph  = extractTaxonomySubTreebyLevel taxidtableentries graph (Just levels)                
-                --let subdiagram = drawTaxonomy (grev subgraph)
+                let currentSubgraph = extractTaxonomySubTreebyLevel taxidtableentries graph (Just levels)                
+                --let subdiagram = drawTaxonomy (grev currentSubgraph)
                 --writeFile (outputDirectoryPath ++ "taxonomy.dot") subdiagram
-                generateOutput outputFormat outputDirectoryPath subgraph
+                generateOutput outputFormat outputDirectoryPath currentSubgraph
          else 
          do -- input taxid path present
             taxidtable <- readFile taxNodeListFilePath
             let taxidtableentries = map (\l -> read l :: Int) (lines taxidtable)
             let graph = fromRight graphOutput
-            let subgraph  = extractTaxonomySubTreebyLevel taxidtableentries graph (Just levels)                
-            --let subdiagram = drawTaxonomy (grev subgraph)
+            let currentSubgraph  = extractTaxonomySubTreebyLevel taxidtableentries graph (Just levels)                
+            --let subdiagram = drawTaxonomy (grev currentSubgraph)
             --writeFile (outputDirectoryPath ++ "taxonomy.dot") subdiagram
-            generateOutput outputFormat outputDirectoryPath subgraph
+            generateOutput outputFormat outputDirectoryPath currentSubgraph
 
 -- | generate output
 generateOutput :: String -> String -> Gr SimpleTaxon Double -> IO ()
