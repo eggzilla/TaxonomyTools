@@ -12,11 +12,11 @@ It is planned to support both datasources with each tool.
 Currently following Tools are included and linked with their usage instructions:
 
 ###[Accessions2TaxIds](accessions2taxids.md)
-Converts a list of NCBI accession numbers into NCBI taxonomy ids
-###[Ids2Tree](ids2tree.md)
+Converts a list of Refseq accession numbers into NCBI taxonomy ids
+###[TaxIds2Tree](taxids2tree.md)
 List of taxonomy ids is converted into a graphical tree representation
 either as .svg (via graphviz) or as .json (via d3js)
-###[Ids2TreeCompare](ids2treecompare.md)
+###[TaxIds2TreeCompare](taxids2treecompare.md)
 Multiple lists of taxonomy ids are converted into a visualisation of the
 taxonomic tree highlighting the input nodes corresponding to their list. 
 ###[TaxIds2Text](taxids2text.md)
