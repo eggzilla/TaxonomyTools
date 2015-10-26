@@ -25,6 +25,6 @@ Multiple lists of taxonomy ids are converted into a visualisation of the
 taxonomic tree highlighting the input nodes corresponding to their list. 
 ###[TaxIds2Text](taxids2text.md)
 List of taxonomy ids is converted in a short text summary for each node.
-###[TreeDistance](treedistance.md)
+###[TreeDistance](taxis2distance.md)
 Computes the distance between two input nodes on the given tree.
 
