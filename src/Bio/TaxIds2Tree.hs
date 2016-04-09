@@ -23,6 +23,7 @@ data Options = Options
     alienCSVFilePath ::String,
     levels :: Int,
     outputFormat :: String,
+    withRank :: Bool,
     outputDirectoryPath :: String
   } deriving (Show,Data,Typeable)
 
@@ -33,8 +34,9 @@ options = Options
     alienCSVFilePath = def &= name "r" &= help "Path to RNAlienResult CSV. Alternative to input taxonomy id list",
     levels = (1 ::Int) &= name "l" &= help "Number defining maximum distance from root for nodes in subtree.",
     outputFormat = "dot" &= name "f" &= help "Requested output format (json,dot). Default: dot",
+    withRank = True &= name "w" &= help "Add taxonomic ranks to output. Default: True",    
     outputDirectoryPath = def &= name "o" &= help "Path to output directory"
-  } &= summary "TaxIds2Tree -  List of taxonomy ids is converted into a graphical tree representation either as .svg (via graphviz) or as .json (via d3js)" &= help "Florian Eggenhofer - 2015" &= verbosity   
+  } &= summary "TaxIds2Tree -  List of taxonomy ids is converted into a graphical tree representation either as .svg (via graphviz) or as .json (via d3js)" &= help "Florian Eggenhofer - 2016" &= verbosity   
 
 main :: IO ()
 main = do
@@ -51,31 +53,27 @@ main = do
                 taxidtableentries <- extractTaxidsAlienCSV alienCSVFilePath
                 let graph = fromRight graphOutput
                 let currentSubgraph = extractTaxonomySubTreebyLevel taxidtableentries graph (Just levels)                
-                --let subdiagram = drawTaxonomy (grev currentSubgraph)
-                --writeFile (outputDirectoryPath ++ "taxonomy.dot") subdiagram
-                generateOutput outputFormat outputDirectoryPath currentSubgraph
+                generateOutput outputFormat outputDirectoryPath withRank currentSubgraph
          else 
          do -- input taxid path present
             taxidtable <- readFile taxNodeListFilePath
             let taxidtableentries = map (\l -> read l :: Int) (lines taxidtable)
             let graph = fromRight graphOutput
-            let currentSubgraph  = extractTaxonomySubTreebyLevel taxidtableentries graph (Just levels)                
-            --let subdiagram = drawTaxonomy (grev currentSubgraph)
-            --writeFile (outputDirectoryPath ++ "taxonomy.dot") subdiagram
-            generateOutput outputFormat outputDirectoryPath currentSubgraph
+            let currentSubgraph  = extractTaxonomySubTreebyLevel taxidtableentries graph (Just levels)
+            writeTree outputFormat outputDirectoryPath withRank currentSubgraph
 
 -- | generate output
-generateOutput :: String -> String -> Gr SimpleTaxon Double -> IO ()
-generateOutput requestedFormat outputDirectoryPath inputGraph = do
+generateOutput :: String -> String -> Bool -> Gr SimpleTaxon Double -> IO ()
+generateOutput requestedFormat outputDirectoryPath withRank inputGraph = do
   case requestedFormat of
-    "dot" -> generateDotOutput outputDirectoryPath inputGraph
+    "dot" -> generateDotOutput outputDirectoryPath withRank inputGraph
     "json" -> generateJsonOutput outputDirectoryPath inputGraph
-    _ -> generateDotOutput outputDirectoryPath inputGraph
+    _ -> generateDotOutput outputDirectoryPath withRank inputGraph
 
 
-generateDotOutput :: String -> Gr SimpleTaxon Double -> IO ()
-generateDotOutput outputDirectoryPath inputGraph = do
-  let diagram = drawTaxonomy (grev inputGraph)
+generateDotOutput :: String -> Bool -> Gr SimpleTaxon Double -> IO ()
+generateDotOutput outputDirectoryPath withRank inputGraph = do
+  let diagram = drawTaxonomy withRank (grev inputGraph)
   writeFile (outputDirectoryPath ++ "taxonomy.dot") diagram
   
 

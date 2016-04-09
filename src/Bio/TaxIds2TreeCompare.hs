@@ -19,7 +19,8 @@ import Data.Char
 data Options = Options            
   { taxDumpDirectoryPath :: String,
     taxNodeCSVFilePath :: String,
-    levels :: Int,                      
+    levels :: Int,
+    withRank :: Bool,
     outputDirectoryPath :: String
   } deriving (Show,Data,Typeable)
 
@@ -28,6 +29,7 @@ options = Options
   { taxDumpDirectoryPath = def &= name "i" &= help "Path to input NCBI taxonomy dump files directory",
     taxNodeCSVFilePath = def &= name "t" &= help "Path to input taxonomy csv, each column with comma separated taxids represents one tree",
     levels = (1 ::Int) &= name "l" &= help "Number defining maximum distance from root for nodes in subtree.",
+    withRank = True &= name "w" &= help "Add taxonomic ranks to output. Default: True",
     outputDirectoryPath = def &= name "o" &= help "Path to output directory"
   } &= summary "TaxIds2TreeCompare - Multiple lists of taxonomy ids are converted into a visualisation of the taxonomic tree highlighting the input nodes corresponding to their list." &= help "Florian Eggenhofer - 2015" &= verbosity   
 
@@ -43,7 +45,7 @@ main = do
        treesTaxids <- extractTreesTaxidsCSV taxNodeCSVFilePath
        let subgraphs  = map (\treeTaxids -> extractTaxonomySubTreebyLevel treeTaxids graph (Just levels)) treesTaxids
        let comparisonGraph = compareSubTrees subgraphs
-       let treeComparison = drawTreeComparison comparisonGraph
+       let treeComparison = drawTaxonomyComparison withRank comparisonGraph
        writeFile (outputDirectoryPath ++ "comparison.dot") treeComparison
       
 -- | Extract taxids from RNAlien result.csv 

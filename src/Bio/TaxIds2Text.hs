@@ -7,7 +7,7 @@ module Main where
     
 import System.Console.CmdArgs    
 import Data.Either.Unwrap
-import qualified Data.ByteString.Char8 as BC
+import qualified Data.Text.Lazy as TL
 import Bio.Taxonomy
 import Data.Maybe
 import Text.Read
@@ -49,7 +49,7 @@ main = do
              mapM_ putStrLn outputCSV
 
 printSimpleNode :: SimpleTaxon -> String 
-printSimpleNode snode = show (simpleRank snode) ++ "," ++ BC.unpack (simpleScientificName snode)
+printSimpleNode snode = show (simpleRank snode) ++ "," ++ TL.unpack (simpleScientificName snode)
 
 readMaybeRank :: String -> Maybe Rank
 readMaybeRank inputString = readMaybe inputString
