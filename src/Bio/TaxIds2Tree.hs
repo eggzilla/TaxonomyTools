@@ -50,10 +50,16 @@ main = do
               putStrLn "Provide a path to input taxonomy id list or to RNAlienResult CSV."
               else 
               do -- input AlienCSV path present
-                taxidtableentries <- extractTaxidsAlienCSV alienCSVFilePath
-                let graph = fromRight graphOutput
-                let currentSubgraph = extractTaxonomySubTreebyLevel taxidtableentries graph (Just levels)                
-                generateOutput outputFormat outputDirectoryPath withRank currentSubgraph
+                 decodedCsvOutput <- extractTaxidsAlienCSV alienCSVFilePath
+                 if (isRight decodedCsvOutput)
+                   then do
+                       let decodedCsvList = V.toList (fromRight decodedCsvOutput)
+                       let taxidtableentries = map firstOfTaxCSVTriple decodedCsvList
+                       let graph = fromRight graphOutput
+                       let currentSubgraph = extractTaxonomySubTreebyLevel taxidtableentries graph (Just levels)                
+                       generateOutput outputFormat outputDirectoryPath withRank currentSubgraph
+                     else do
+                      writeFile (outputDirectoryPath ++ "taxonomy.json") (show (fromLeft decodedCsvOutput))
          else 
          do -- input taxid path present
             taxidtable <- readFile taxNodeListFilePath
@@ -84,12 +90,14 @@ generateJsonOutput outputDirectoryPath inputGraph = do
 
 
 -- | Extract taxids from RNAlien result.csv 
-extractTaxidsAlienCSV :: String -> IO [Node]
+extractTaxidsAlienCSV :: String -> IO (Either String (V.Vector (Int,L.ByteString,L.ByteString)))
 extractTaxidsAlienCSV alienCSVPath = do
   let myOptions = defaultDecodeOptions {
          decDelimiter = fromIntegral (ord ';')
          }
   inputCSV <- L.readFile alienCSVPath
-  let decodedCsvOutput = V.toList (fromRight (decodeWith myOptions HasHeader inputCSV :: Either String (V.Vector (Int,L.ByteString,L.ByteString))))
-  let taxnodes = map (\(a,_,_) -> a :: Node) decodedCsvOutput
-  return taxnodes 
+  let decodedCsvOutput = decodeWith myOptions HasHeader inputCSV :: Either String (V.Vector (Int,L.ByteString,L.ByteString))
+  return decodedCsvOutput
+
+firstOfTaxCSVTriple :: (Int, L.ByteString, L.ByteString) -> Node
+firstOfTaxCSVTriple (a,_,_) = a
