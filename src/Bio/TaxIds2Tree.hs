@@ -53,10 +53,10 @@ main = do
                  decodedCsvOutput <- extractTaxidsAlienCSV alienCSVFilePath
                  if (isRight decodedCsvOutput)
                    then do
-                       let decodedCsvList = V.toList (fromRight decodedCsvOutput)
-                       let taxidtableentries = map firstOfTaxCSVTriple decodedCsvList
+                       let decodedCsvList = (fromRight decodedCsvOutput)
+                       let taxidtableentries = V.map firstOfTaxCSVTriple decodedCsvList
                        let graph = fromRight graphOutput
-                       let currentSubgraph = extractTaxonomySubTreebyLevel taxidtableentries graph (Just levels)                
+                       let currentSubgraph = extractTaxonomySubTreebyLevelNew (V.toList taxidtableentries) graph (Just levels)                
                        generateOutput outputFormat outputDirectoryPath withRank currentSubgraph
                      else do
                       writeFile (outputDirectoryPath ++ "taxonomy.json") (show (fromLeft decodedCsvOutput))
