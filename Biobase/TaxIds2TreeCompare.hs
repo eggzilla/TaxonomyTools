@@ -10,7 +10,7 @@ import System.Console.CmdArgs
 import Bio.Taxonomy
 import Data.Either.Unwrap
 import Data.Graph.Inductive
-import Data.Csv
+import qualified Data.Csv as DC
 import qualified Data.Vector as V
 import qualified Data.ByteString.Lazy.Char8 as L
 import Data.Char
@@ -51,12 +51,12 @@ main = do
 -- | Extract taxids from RNAlien result.csv 
 extractTreesTaxidsCSV :: String -> IO [[Node]]
 extractTreesTaxidsCSV treesCSVPath = do
-  let myOptions = defaultDecodeOptions {
-         decDelimiter = fromIntegral (ord ',')
+  let myOptions = DC.defaultDecodeOptions {
+         DC.decDelimiter = fromIntegral (ord ',')
          }
   inputCSV <- L.readFile treesCSVPath
-  let decodedCsvOutput = V.toList (fromRight (decodeWith myOptions NoHeader inputCSV :: Either String (V.Vector ([Int]))))
-  --print (fromLeft (decodeWith myOptions NoHeader inputCSV :: Either String (V.Vector ([Int]))))
+  let decodedCsvOutput = V.toList (fromRight (DC.decodeWith myOptions DC.NoHeader inputCSV :: Either String (V.Vector ([Int]))))
+  --print (fromLeft (decodeWith myOptions DC.NoHeader inputCSV :: Either String (V.Vector ([Int]))))
   let treesTaxids = decodedCsvOutput
   return treesTaxids 
   --return [[]]
