@@ -10,7 +10,8 @@ import System.Console.CmdArgs
 import Bio.Taxonomy
 import Data.Either.Unwrap
 import Data.Graph.Inductive
-import Data.Csv
+import qualified Data.Graph.Inductive.Tree as IT
+import qualified Data.Csv as DC
 import qualified Data.Vector as V
 import qualified Data.ByteString.Lazy.Char8 as L
 import Data.Char
@@ -69,7 +70,7 @@ main = do
             writeTree outputFormat outputDirectoryPath withRank currentSubgraph
 
 -- | generate output
-generateOutput :: String -> String -> Bool -> Gr SimpleTaxon Double -> IO ()
+generateOutput :: String -> String -> Bool -> IT.Gr SimpleTaxon Double -> IO ()
 generateOutput requestedFormat outputDirectoryPath withRank inputGraph = do
   case requestedFormat of
     "dot" -> generateDotOutput outputDirectoryPath withRank inputGraph
@@ -77,13 +78,13 @@ generateOutput requestedFormat outputDirectoryPath withRank inputGraph = do
     _ -> generateDotOutput outputDirectoryPath withRank inputGraph
 
 
-generateDotOutput :: String -> Bool -> Gr SimpleTaxon Double -> IO ()
+generateDotOutput :: String -> Bool -> IT.Gr SimpleTaxon Double -> IO ()
 generateDotOutput outputDirectoryPath withRank inputGraph = do
   let diagram = drawTaxonomy withRank (grev inputGraph)
   writeFile (outputDirectoryPath ++ "taxonomy.dot") diagram
   
 
-generateJsonOutput :: String -> Gr SimpleTaxon Double -> IO ()
+generateJsonOutput :: String -> IT.Gr SimpleTaxon Double -> IO ()
 generateJsonOutput outputDirectoryPath inputGraph = do
   let jsonOutput = E.encode (grev inputGraph)
   L.writeFile (outputDirectoryPath ++ "taxonomy.json") jsonOutput
@@ -92,11 +93,11 @@ generateJsonOutput outputDirectoryPath inputGraph = do
 -- | Extract taxids from RNAlien result.csv 
 extractTaxidsAlienCSV :: String -> IO (Either String (V.Vector (Int,L.ByteString,L.ByteString)))
 extractTaxidsAlienCSV alienCSVPath = do
-  let myOptions = defaultDecodeOptions {
-         decDelimiter = fromIntegral (ord ';')
+  let myOptions = DC.defaultDecodeOptions {
+         DC.decDelimiter = fromIntegral (ord ';')
          }
   inputCSV <- L.readFile alienCSVPath
-  let decodedCsvOutput = decodeWith myOptions HasHeader inputCSV :: Either String (V.Vector (Int,L.ByteString,L.ByteString))
+  let decodedCsvOutput = DC.decodeWith myOptions DC.HasHeader inputCSV :: Either String (V.Vector (Int,L.ByteString,L.ByteString))
   return decodedCsvOutput
 
 firstOfTaxCSVTriple :: (Int, L.ByteString, L.ByteString) -> Node

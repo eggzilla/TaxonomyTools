@@ -11,7 +11,7 @@ import Text.ParserCombinators.Parsec
 import Data.List
 import Data.Either.Unwrap
 import Control.Concurrent
-import Bio.EntrezHTTP
+import Biobase.Entrez.HTTP
 import Text.XML.HXT.Core  
  
 data Options = Options            
