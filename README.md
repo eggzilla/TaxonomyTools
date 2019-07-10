@@ -1,6 +1,6 @@
 ![TaxonomyTools](http://www.tbi.univie.ac.at/~egg/TaxonomyTools.png "TaxonomyTools")
 
-[![Hackage](https://img.shields.io/hackage/v/TaxonomyTools.svg)](https://hackage.haskell.org/package/TaxonomyTools) [![Build Status](https://travis-ci.org/eggzilla/TaxonomyTools.svg)](https://travis-ci.org/eggzilla/TaxonomyTools)
+[![GitHub](https://img.shields.io/github/tag/eggzilla/RNAlien.svg)](https://github.com/eggzilla/RNAlien) [![Build Status](https://travis-ci.org/eggzilla/TaxonomyTools.svg)](https://travis-ci.org/eggzilla/TaxonomyTools) [![Hackage](https://img.shields.io/hackage/v/TaxonomyTools.svg)](https://hackage.haskell.org/package/TaxonomyTools) [![Bioconda](https://anaconda.org/bioconda/taxonomytools/badges/version.svg)](https://anaconda.org/bioconda/taxonomytools) [![Docker Repository on Quay](https://quay.io/repository/biocontainers/taxonomytools/status "Docker Repository on Quay")](https://quay.io/repository/repository/biocontainers/taxonomytools)
 =============
 
 Taxonomy Tool utilizes functions from the Taxonomy library to provide
