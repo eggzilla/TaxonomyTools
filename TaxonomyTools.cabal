@@ -60,25 +60,25 @@ executable TaxIds2Text
   Hs-Source-Dirs:      ./Biobase/
   main-is:	       TaxIds2Text.hs
   ghc-options:         -Wall -O2
-  build-depends:       base >=4.5 && <5, cmdargs, Taxonomy>=1.0.2, either-unwrap, fgl, text
+  build-depends:       base >=4.5 && <5, cmdargs, Taxonomy>=2.0.0, either-unwrap, fgl, text
 
 executable Accessions2TaxIds
   Hs-Source-Dirs:      ./Biobase/
   main-is:	       Accessions2TaxIds.hs
   ghc-options:         -Wall -O2 -fno-warn-unused-do-bind
-  build-depends:       base >=4.5 && <5, cmdargs, process, directory, Taxonomy>=1.0.2, either-unwrap, fgl, cassava>=0.4.5.1, vector, bytestring, parsec, BiobaseHTTP>=1.1.0, hxt
+  build-depends:       base >=4.5 && <5, cmdargs, process, directory, Taxonomy>=2.0.0, either-unwrap, fgl, cassava>=0.4.5.1, vector, bytestring, parsec, BiobaseHTTP>=1.1.0, hxt
 
 executable TaxIds2TreeCompare
   Hs-Source-Dirs:      ./Biobase/
   main-is:	       TaxIds2TreeCompare.hs
   ghc-options:         -Wall -O2    
-  build-depends:       base >=4.5 && <5, cmdargs, process, directory, Taxonomy>=1.0.2, either-unwrap, fgl, cassava>=0.4.5.1, vector, bytestring
+  build-depends:       base >=4.5 && <5, cmdargs, process, directory, Taxonomy>=2.0.0, either-unwrap, fgl, cassava>=0.4.5.1, vector, bytestring
 
 executable TaxIds2Tree
   Hs-Source-Dirs:      ./Biobase/
   main-is:	       TaxIds2Tree.hs
   ghc-options:         -Wall -O2 
-  build-depends:       base >=4.5 && <5, cmdargs, process, directory, Taxonomy>=1.0.2, either-unwrap, fgl, cassava>=0.4.5.1, vector, bytestring, aeson
+  build-depends:       base >=4.5 && <5, cmdargs, process, directory, Taxonomy>=2.0.0, either-unwrap, fgl, cassava>=0.4.5.1, vector, bytestring, aeson
 
 executable TaxIdsDistance
   Hs-Source-Dirs:      ./Biobase/

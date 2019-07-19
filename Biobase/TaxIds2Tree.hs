@@ -54,21 +54,24 @@ main = do
                  decodedCsvOutput <- extractTaxidsAlienCSV alienCSVFilePath
                  if (isRight decodedCsvOutput)
                    then do
-                       let decodedCsvList = (fromRight decodedCsvOutput)
-                       let taxidtableentries = V.map firstOfTaxCSVTriple decodedCsvList
+                       let decodedCsvList = V.toList (fromRight decodedCsvOutput)
+                       let taxidtableentries = map firstOfTaxCSVTriple decodedCsvList
                        let graph = fromRight graphOutput
-                       let currentSubgraph = extractTaxonomySubTreebyLevelNew (V.toList taxidtableentries) graph (Just levels)                
+                       let currentSubgraph = extractTaxonomySubTreebyLevelNew taxidtableentries graph (Just levels)                
                        generateOutput outputFormat outputDirectoryPath withRank currentSubgraph
                      else do
                       writeFile (outputDirectoryPath ++ "taxonomy.json") (show (fromLeft decodedCsvOutput))
          else 
          do -- input taxid path present
             taxidtable <- readFile taxNodeListFilePath
-            let taxidtableentries = map (\l -> read l :: Int) (lines taxidtable)
+            let taxidLines = lines taxidtable
+            let taxidtableentries = map readInt taxidLines
             let graph = fromRight graphOutput
             let currentSubgraph  = extractTaxonomySubTreebyLevel taxidtableentries graph (Just levels)
             writeTree outputFormat outputDirectoryPath withRank currentSubgraph
 
+readInt :: String -> Int
+readInt line = read line ::Int
 -- | generate output
 generateOutput :: String -> String -> Bool -> IT.Gr SimpleTaxon Double -> IO ()
 generateOutput requestedFormat outputDirectoryPath withRank inputGraph = do
@@ -102,3 +105,4 @@ extractTaxidsAlienCSV alienCSVPath = do
 
 firstOfTaxCSVTriple :: (Int, L.ByteString, L.ByteString) -> Node
 firstOfTaxCSVTriple (a,_,_) = a
+
