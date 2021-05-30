@@ -10,8 +10,8 @@ description:         Taxonomy Tool utilizes functions from the Taxonomy library 
                      while other retrieve the data directly from the <http://www.ncbi.nlm.nih.gov/gquery/ NCBI Entrez REST> interface.
                      .
                      It is planned to support both datasources with each tool.
-		     .
-		     Usage instructions can be found in the <https://github.com/eggzilla/TaxonomyTools README>
+                     .
+                     Usage instructions can be found in the <https://github.com/eggzilla/TaxonomyTools README>
                      .
                      Currently following Tools are included:
                      .
