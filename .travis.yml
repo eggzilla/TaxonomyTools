@@ -6,7 +6,7 @@ services:
   - docker
 
 before_script:
-  - docker build --tag TaxonomyTools -f Dockerfile.dev .
+  - docker build --tag taxonomytools -f Dockerfile.dev .
 
 script:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
