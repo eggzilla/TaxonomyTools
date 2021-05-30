@@ -11,7 +11,7 @@ before_script:
 
 script:
   - docker create --name develcontainer TaxonomyTools
-  - docker images
+  - docker images 
   - mkdir TaxonomyTools
   - docker cp develcontainer:/Accessions2TaxIds Accessions2TaxIds
   - docker cp develcontainer:/TaxIds2Text TaxIds2Text
