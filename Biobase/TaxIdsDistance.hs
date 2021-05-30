@@ -6,7 +6,7 @@ module Main where
 
 import Prelude 
 import System.Console.CmdArgs    
-import Bio.Taxonomy
+import Biobase.Taxonomy
 import Data.Either.Unwrap
 import Data.Graph.Inductive
 --------------------------------------------------------

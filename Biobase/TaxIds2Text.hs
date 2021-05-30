@@ -8,7 +8,7 @@ module Main where
 import System.Console.CmdArgs    
 import Data.Either.Unwrap
 import qualified Data.Text.Lazy as TL
-import Bio.Taxonomy
+import Biobase.Taxonomy
 import Data.Maybe
 import Text.Read
 
