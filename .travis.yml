@@ -12,7 +12,6 @@ before_script:
 script:
   - docker create --name develcontainer $DOCKER_USERNAME/taxonomytools
   - docker images
-  - export CONTAINER_ID=docker tag travis-ci-build-stages-demo $DOCKER_USERNAME/travis-ci-build-stages-demo 
   - mkdir TaxonomyTools
   - docker cp develcontainer:/Accessions2TaxIds Accessions2TaxIds
   - docker cp develcontainer:/TaxIds2Text TaxIds2Text
