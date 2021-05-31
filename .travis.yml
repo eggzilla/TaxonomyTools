@@ -20,7 +20,7 @@ script:
   - docker cp develcontainer:/TaxIdsDistance TaxIdsDistance
   - cp LICENSE TaxonomyTools
   - tar -cvzf TaxonomyTools.tar.gz TaxonomyTools
-  - docker push $DOCKER_USERNAME/taxonomytools:$TRAVIS_TAG
+  - docker push $DOCKER_USERNAME/taxonomytools
 
 
 deploy:
