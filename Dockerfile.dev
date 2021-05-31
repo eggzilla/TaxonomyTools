@@ -12,4 +12,5 @@ RUN cp /source/dist-newstyle/build/x86_64-linux/ghc-*/TaxonomyTools-*/x/TaxIds2T
 RUN cp /source/dist-newstyle/build/x86_64-linux/ghc-*/TaxonomyTools-*/x/TaxIds2Tree/build/TaxIds2Tree/TaxIds2Tree /TaxIds2Tree
 RUN cp /source/dist-newstyle/build/x86_64-linux/ghc-*/TaxonomyTools-*/x/TaxIdsDistance/build/TaxIdsDistance/TaxIdsDistance /TaxIdsDistance
 RUN cabal new-clean
+RUN rm -r /source
 RUN apk del musl musl-dev musl-utils musl-dbg ghc ghc-dev ghc-doc cabal zlib-static zlib-dev zlib tar gzip wget

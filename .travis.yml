@@ -10,7 +10,7 @@ before_script:
   - docker build --tag $DOCKER_USERNAME/taxonomytools -f Dockerfile.dev .
 
 script:
-  - docker create --name develcontainer taxonomytools
+  - docker create --name develcontainer $DOCKER_USERNAME/taxonomytools
   - docker images 
   - mkdir TaxonomyTools
   - docker cp develcontainer:/Accessions2TaxIds Accessions2TaxIds
