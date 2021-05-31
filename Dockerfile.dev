@@ -8,7 +8,7 @@ WORKDIR source
 RUN cabal new-update && cabal new-build --ghc-options="-optl-static -optl-pthread -fPIC"
 RUN cp /source/dist-newstyle/build/x86_64-linux/ghc-*/TaxonomyTools-*/x/Accessions2TaxIds/build/Accessions2TaxIds/Accessions2TaxIds /Accessions2TaxIds
 RUN cp /source/dist-newstyle/build/x86_64-linux/ghc-*/TaxonomyTools-*/x/TaxIds2Text/build/TaxIds2Text/TaxIds2Text /TaxIds2Text
-RUN cp source/dist-newstyle/build/x86_64-linux/ghc-*/TaxonomyTools-*/x/TaxIds2TreeCompare/build/TaxIds2TreeCompare/TaxIds2TreeCompare /TaxIds2TreeCompare
+RUN cp /source/dist-newstyle/build/x86_64-linux/ghc-*/TaxonomyTools-*/x/TaxIds2TreeCompare/build/TaxIds2TreeCompare/TaxIds2TreeCompare /TaxIds2TreeCompare
 RUN cp /source/dist-newstyle/build/x86_64-linux/ghc-*/TaxonomyTools-*/x/TaxIds2Tree/build/TaxIds2Tree/TaxIds2Tree TaxIds2Tree
 RUN cp /source/dist-newstyle/build/x86_64-linux/ghc-*/TaxonomyTools-*/x/TaxIdsDistance/build/TaxIdsDistance/TaxIdsDistance /TaxIdsDistance
 RUN cabal new-clean
